@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController //bean == java object managed bu Spring Containers
@@ -32,8 +33,10 @@ public class DataDashboardController { // Controller relies on DAO
     @Cacheable(value = "DataCacheNamespace", key = "#id")
     @GetMapping("/data/{id}")
     public Data getDataById(@PathVariable Long id) {
+        //System.out.println(new Date());
         System.out.println("\nCalling dataById from DAO for data:\n" + id);
         return dataDao.findById(id); //作为response body, 又把java转化成JSON
+        //System.out.println(new Date());
     }
 
     @GetMapping("/data")
@@ -52,7 +55,7 @@ public class DataDashboardController { // Controller relies on DAO
         return dataDao.findByClientId(clientId, field, sort, start, end);
     }
 
-    @CachePut(value = "dataCache", key = "#id")
+    @CachePut(value = "DataCacheNamespace", key = "#id")
     @PutMapping("/data/{id}")
     public Data updateData(@PathVariable Long id, @RequestBody Data data) {
         return dataDao.update(id, data);

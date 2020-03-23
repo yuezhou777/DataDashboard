@@ -8,12 +8,13 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.io.Serializable;
 
 @Entity //Declare this class as the JPA entity and map it to the database schema
 @Table(name = "data")
-@JsonIgnoreProperties(value = {"id", "createdAt", "updatedAt"}, allowGetters = true)
+//@JsonIgnoreProperties(value = {"id", "createdAt", "updatedAt"}, allowGetters = true)
 @EntityListeners(AuditingEntityListener.class)
-public class Data {
+public class Data implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

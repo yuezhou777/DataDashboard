@@ -1,15 +1,18 @@
 package com.techbow.datadashboard.model.dvo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 @Entity //Declare this class as the JPA entity and map it to the database schema
+@Table(name = "data")
+@JsonIgnoreProperties(value = {"id", "createdAt", "updatedAt"}, allowGetters = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Data {
 
     @Id
